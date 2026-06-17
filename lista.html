@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista lica</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      width: 100%;
+      max-width: 560px;
+      padding: 32px 28px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e8e8e8;
+      margin-bottom: 20px;
+    }
+
+    #lista {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #e8e8e8;
+      background: #fafafa;
+      transition: background 0.2s, border-color 0.2s, opacity 0.25s;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .item:hover {
+      background: #f0f4ff;
+      border-color: #b0bfff;
+    }
+
+    .item.checked {
+      background: #f5f5f5;
+      border-color: #ddd;
+      opacity: 0.65;
+    }
+
+    .item.checked .ime {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+
+    .broj {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #9b9b9b;
+      min-width: 22px;
+      text-align: right;
+    }
+
+    .item.checked .broj {
+      color: #bbb;
+    }
+
+    .item.top7 {
+      background: #eef2ff;
+      border-color: #c7d2fe;
+    }
+
+    .item.top7:hover {
+      background: #e0e7ff;
+      border-color: #a5b4fc;
+    }
+
+    .item.top7 .broj {
+      color: #4a6cf7;
+    }
+
+    .item.top7.checked {
+      background: #f0f0f0;
+      border-color: #ddd;
+    }
+
+    .ime {
+      flex: 1;
+      font-size: 0.97rem;
+      color: #222;
+      font-weight: 500;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      accent-color: #4a6cf7;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .separator-label {
+      font-size: 0.72rem;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 6px 4px 2px;
+      display: none;
+    }
+
+    .separator-label.visible {
+      display: block;
+    }
+
+    .stats {
+      margin-top: 20px;
+      font-size: 0.82rem;
+      color: #aaa;
+      text-align: right;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      width: 300px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal h2 {
+      font-size: 1rem;
+      color: #1a1a2e;
+      margin: 0;
+    }
+
+    .modal p {
+      font-size: 0.84rem;
+      color: #888;
+      margin: 0;
+    }
+
+    .modal input[type="password"] {
+      border: 1.5px solid #ddd;
+      border-radius: 7px;
+      padding: 9px 12px;
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+
+    .modal input[type="password"]:focus {
+      border-color: #4a6cf7;
+    }
+
+    .modal input[type="password"].greska {
+      border-color: #e74c3c;
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      padding: 8px 18px;
+      border-radius: 7px;
+      border: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .btn-cancel {
+      background: #f0f0f0;
+      color: #555;
+    }
+
+    .btn-cancel:hover { background: #e0e0e0; }
+
+    .btn-ok {
+      background: #4a6cf7;
+      color: #fff;
+    }
+
+    .btn-ok:hover { background: #3a5ce5; }
+
+    .greska-tekst {
+      font-size: 0.78rem;
+      color: #e74c3c;
+      display: none;
+    }
+
+    .greska-tekst.visible { display: block; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Lista lica</h1>
+  <p class="subtitle">Označena lica automatski idu na dno liste.</p>
+  <hr class="divider">
+
+  <div class="separator-label" id="label-aktivni">Aktivni</div>
+  <ul id="lista"></ul>
+  <div class="separator-label" id="label-oznaceni">Označeni</div>
+  <ul id="lista-checked"></ul>
+
+  <div class="stats" id="stats">0 / 24 označeno</div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h2>Unesite šifru</h2>
+    <p>Da biste premestili lice na dno liste, unesite šifru.</p>
+    <input type="password" id="sifra-input" placeholder="Šifra..." maxlength="20">
+    <span class="greska-tekst" id="greska-tekst">Pogrešna šifra. Pokušajte ponovo.</span>
+    <div class="modal-buttons">
+      <button class="btn btn-cancel" id="btn-cancel">Otkaži</button>
+      <button class="btn btn-ok" id="btn-ok">Potvrdi</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const lica = [
+    "Aleksandar Gligorijević",
+    "Branko Sarajlić",
+    "Jovana Šormaz",
+    "Ivana Mihajlović",
+    "Ana Jakovljević",
+    "Jovan Gordić",
+    "Nemanja Mitrović",
+    "Kristina Mehović",
+    "Lazar Kaličanin",
+    "Kosara Stevanović",
+    "Marjan Matijašević",
+    "Marija Tokodi",
+    "Marija Mijić",
+    "Lazar Kanazir",
+    "Đorđe Trifunović",
+    "Teodora Todorić",
+    "Nenad Žigić",
+    "Nikola Velimirović",
+    "Marko Milivojčević",
+    "Milan Milić",
+    "Miloš Cvjetković",
+    "Ilija Matović",
+    "Marko Predragović",
+    "Bogdan Šušnja"
+  ];
+
+  const state = lica.map((ime, i) => ({ id: i, ime, checked: false }));
+
+  const lista = document.getElementById('lista');
+  const listaChecked = document.getElementById('lista-checked');
+  const stats = document.getElementById('stats');
+  const labelAktivni = document.getElementById('label-aktivni');
+  const labelOznaceni = document.getElementById('label-oznaceni');
+
+  const overlay = document.getElementById('modal-overlay');
+  const sifraInput = document.getElementById('sifra-input');
+  const greskaTekst = document.getElementById('greska-tekst');
+  const SIFRA = '2708';
+  let pendingId = null;
+
+  function otvoriModal(id) {
+    pendingId = id;
+    sifraInput.value = '';
+    sifraInput.classList.remove('greska');
+    greskaTekst.classList.remove('visible');
+    overlay.classList.add('active');
+    setTimeout(() => sifraInput.focus(), 50);
+  }
+
+  function zatvoriModal() {
+    overlay.classList.remove('active');
+    pendingId = null;
+  }
+
+  function potvrdiSifru() {
+    if (sifraInput.value === SIFRA) {
+      state[pendingId].checked = true;
+      zatvoriModal();
+      render();
+    } else {
+      sifraInput.classList.add('greska');
+      greskaTekst.classList.add('visible');
+      sifraInput.value = '';
+      setTimeout(() => sifraInput.classList.remove('greska'), 400);
+    }
+  }
+
+  document.getElementById('btn-ok').addEventListener('click', potvrdiSifru);
+  document.getElementById('btn-cancel').addEventListener('click', zatvoriModal);
+  sifraInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') potvrdiSifru();
+    if (e.key === 'Escape') zatvoriModal();
+  });
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) zatvoriModal();
+  });
+
+  function render() {
+    lista.innerHTML = '';
+    listaChecked.innerHTML = '';
+
+    const aktivni = state.filter(s => !s.checked);
+    const oznaceni = state.filter(s => s.checked);
+
+    aktivni.forEach((s, i) => lista.appendChild(createItem(s, i + 1)));
+    oznaceni.forEach((s, i) => listaChecked.appendChild(createItem(s, aktivni.length + i + 1)));
+
+    labelOznaceni.classList.toggle('visible', oznaceni.length > 0);
+    labelAktivni.classList.toggle('visible', oznaceni.length > 0 && aktivni.length > 0);
+
+    const count = oznaceni.length;
+    stats.textContent = `${count} / ${lica.length} označeno`;
+
+  }
+
+  function createItem(s, pozicija) {
+    const li = document.createElement('li');
+    li.className = 'item' + (s.checked ? ' checked' : '') + (pozicija <= 7 ? ' top7' : '');
+    li.innerHTML = `
+      <span class="broj">${pozicija}.</span>
+      <span class="ime">${s.ime}</span>
+      <input class="checkbox" type="checkbox" ${s.checked ? 'checked' : ''}>
+    `;
+
+    const cb = li.querySelector('.checkbox');
+
+    cb.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        cb.checked = false;
+        otvoriModal(s.id);
+      } else {
+        state[s.id].checked = false;
+        render();
+      }
+    });
+
+    li.addEventListener('click', (e) => {
+      if (e.target !== cb) {
+        if (!s.checked) {
+          otvoriModal(s.id);
+        } else {
+          state[s.id].checked = false;
+          render();
+        }
+      }
+    });
+
+    return li;
+  }
+
+  render();
+</script>
+</body>
+</html>
