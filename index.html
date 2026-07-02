@@ -115,19 +115,6 @@
       flex-shrink: 0;
     }
 
-    .separator-label {
-      font-size: 0.72rem;
-      color: #bbb;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      padding: 6px 4px 2px;
-      display: none;
-    }
-
-    .separator-label.visible {
-      display: block;
-    }
-
     .stats {
       margin-top: 20px;
       font-size: 0.82rem;
@@ -241,9 +228,7 @@
   <p class="subtitle">Označena lica automatski idu na dno liste.</p>
   <hr class="divider">
 
-  <div class="separator-label" id="label-aktivni">Aktivni</div>
   <ul id="lista"></ul>
-  <div class="separator-label" id="label-oznaceni">Označeni</div>
   <ul id="lista-checked"></ul>
 
   <div class="stats" id="stats">0 / 24 označeno</div>
@@ -311,9 +296,7 @@
   const lista = document.getElementById('lista');
   const listaChecked = document.getElementById('lista-checked');
   const stats = document.getElementById('stats');
-  const labelAktivni = document.getElementById('label-aktivni');
-  const labelOznaceni = document.getElementById('label-oznaceni');
-  const overlay = document.getElementById('modal-overlay');
+const overlay = document.getElementById('modal-overlay');
   const sifraInput = document.getElementById('sifra-input');
   const greskaTekst = document.getElementById('greska-tekst');
 
@@ -387,9 +370,6 @@
 
     aktivni.forEach((s, i) => lista.appendChild(createItem(s, i + 1)));
     oznaceni.forEach((s, i) => listaChecked.appendChild(createItem(s, aktivni.length + i + 1)));
-
-    labelOznaceni.classList.toggle('visible', oznaceni.length > 0);
-    labelAktivni.classList.toggle('visible', oznaceni.length > 0 && aktivni.length > 0);
 
     stats.textContent = `${oznaceni.length} / ${DEFAULT_LICA.length} označeno`;
   }
