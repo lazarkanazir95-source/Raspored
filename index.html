@@ -372,8 +372,9 @@
 
   function potvrdiSifru() {
     if (sifraInput.value === SIFRA) {
+      const id = pendingId;
       zatvoriModal();
-      checkItem(pendingId);
+      checkItem(id);
     } else {
       sifraInput.classList.add('greska');
       greskaTekst.classList.add('visible');
