@@ -278,7 +278,7 @@
 </div>
 
 <script>
-  const lica = [
+  const DEFAULT_LICA = [
     "Aleksandar Gligorijević",
     "Branko Sarajlić",
     "Jovana Šormaz",
@@ -305,19 +305,56 @@
     "Bogdan Šušnjar"
   ];
 
-  const state = lica.map((ime, i) => ({ id: i, ime, checked: false }));
+  const SIFRA = '2708';
+  const STORAGE_KEY = 'raspored-state';
+
+  function loadState() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return DEFAULT_LICA.map((ime, i) => ({ id: i, ime, checked: false }));
+  }
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  let state = loadState();
+  let pendingId = null;
 
   const lista = document.getElementById('lista');
   const listaChecked = document.getElementById('lista-checked');
   const stats = document.getElementById('stats');
   const labelAktivni = document.getElementById('label-aktivni');
   const labelOznaceni = document.getElementById('label-oznaceni');
-
   const overlay = document.getElementById('modal-overlay');
   const sifraInput = document.getElementById('sifra-input');
   const greskaTekst = document.getElementById('greska-tekst');
-  const SIFRA = '2708';
-  let pendingId = null;
+
+  function checkItem(id) {
+    const idx = state.findIndex(s => s.id === id);
+    const [item] = state.splice(idx, 1);
+    item.checked = true;
+    state.push(item);
+    saveState();
+    render();
+  }
+
+  function uncheckItem(id) {
+    const idx = state.findIndex(s => s.id === id);
+    const [item] = state.splice(idx, 1);
+    item.checked = false;
+    const insertAt = state.findIndex(s => !s.checked && s.id > id);
+    if (insertAt === -1) {
+      const firstChecked = state.findIndex(s => s.checked);
+      state.splice(firstChecked === -1 ? state.length : firstChecked, 0, item);
+    } else {
+      state.splice(insertAt, 0, item);
+    }
+    saveState();
+    render();
+  }
 
   function otvoriModal(id) {
     pendingId = id;
@@ -335,9 +372,8 @@
 
   function potvrdiSifru() {
     if (sifraInput.value === SIFRA) {
-      state[pendingId].checked = true;
       zatvoriModal();
-      render();
+      checkItem(pendingId);
     } else {
       sifraInput.classList.add('greska');
       greskaTekst.classList.add('visible');
@@ -369,9 +405,7 @@
     labelOznaceni.classList.toggle('visible', oznaceni.length > 0);
     labelAktivni.classList.toggle('visible', oznaceni.length > 0 && aktivni.length > 0);
 
-    const count = oznaceni.length;
-    stats.textContent = `${count} / ${lica.length} označeno`;
-
+    stats.textContent = `${oznaceni.length} / ${DEFAULT_LICA.length} označeno`;
   }
 
   function createItem(s, pozicija) {
@@ -390,8 +424,7 @@
         cb.checked = false;
         otvoriModal(s.id);
       } else {
-        state[s.id].checked = false;
-        render();
+        uncheckItem(s.id);
       }
     });
 
@@ -400,8 +433,7 @@
         if (!s.checked) {
           otvoriModal(s.id);
         } else {
-          state[s.id].checked = false;
-          render();
+          uncheckItem(s.id);
         }
       }
     });
