@@ -390,8 +390,10 @@ const overlay = document.getElementById('modal-overlay');
     li.innerHTML = `
       <span class="broj">${pozicija}.</span>
       <span class="ime">${s.ime}</span>
-      <input class="checkbox" type="checkbox" ${s.checked ? 'checked' : ''}>
+      <input class="checkbox" type="checkbox">
     `;
+
+    if (s.checked) return li;
 
     const cb = li.querySelector('.checkbox');
 
@@ -399,19 +401,11 @@ const overlay = document.getElementById('modal-overlay');
       if (e.target.checked) {
         cb.checked = false;
         otvoriModal(s.id);
-      } else {
-        uncheckItem(s.id);
       }
     });
 
     li.addEventListener('click', (e) => {
-      if (e.target !== cb) {
-        if (!s.checked) {
-          otvoriModal(s.id);
-        } else {
-          uncheckItem(s.id);
-        }
-      }
+      if (e.target !== cb) otvoriModal(s.id);
     });
 
     return li;
