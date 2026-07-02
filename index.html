@@ -95,9 +95,18 @@
       color: #4a6cf7;
     }
 
-    .item.top7.checked {
-      background: #f0f0f0;
-      border-color: #ddd;
+    .item.mid7 {
+      background: #e0f2fe;
+      border-color: #bae6fd;
+    }
+
+    .item.mid7:hover {
+      background: #bae6fd;
+      border-color: #7dd3fc;
+    }
+
+    .item.mid7 .broj {
+      color: #0284c7;
     }
 
     .ime {
@@ -376,7 +385,8 @@ const overlay = document.getElementById('modal-overlay');
 
   function createItem(s, pozicija) {
     const li = document.createElement('li');
-    li.className = 'item' + (s.checked ? ' checked' : '') + (pozicija <= 7 ? ' top7' : '');
+    const boja = pozicija <= 7 ? ' top7' : pozicija <= 14 ? ' mid7' : '';
+    li.className = 'item' + boja;
     li.innerHTML = `
       <span class="broj">${pozicija}.</span>
       <span class="ime">${s.ime}</span>
