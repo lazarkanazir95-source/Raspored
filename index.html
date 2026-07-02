@@ -64,12 +64,10 @@
       margin-right: 56px;
     }
 
-    #datum-sidebar {
+    #datum-sidebar, #datum-sidebar-2 {
       position: absolute;
       right: 0;
       width: 50px;
-      background: #e0e7ff;
-      border: 1px solid #818cf8;
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -78,9 +76,20 @@
       transform: rotate(180deg);
       font-size: 0.68rem;
       font-weight: 700;
-      color: #4338ca;
       padding: 8px 0;
       letter-spacing: 0.4px;
+    }
+
+    #datum-sidebar {
+      background: #e0e7ff;
+      border: 1px solid #818cf8;
+      color: #4338ca;
+    }
+
+    #datum-sidebar-2 {
+      background: #bae6fd;
+      border: 1px solid #38bdf8;
+      color: #0369a1;
     }
 
     .item {
@@ -280,7 +289,8 @@
   <div class="lista-wrap">
     <ul id="lista"></ul>
     <ul id="lista-checked"></ul>
-    <div id="datum-sidebar">04. i 05.07.2026</div>
+    <div id="datum-sidebar">04. - 05.07.2026.</div>
+    <div id="datum-sidebar-2">11. - 12.07.2026.</div>
   </div>
 
   <div class="stats" id="stats">0 / 24 označeno</div>
@@ -308,19 +318,19 @@
     "Kosara S.",
     "Ivana M.",
     "Marija M.",
-    "Branko S.",
+    "Teodora T.",
+    "Marjan M.",
+    "Marko M.",
+    "Nenad Ž.",
+    "Nikola V.",
+    "Milan M.",
+    "Lazar Kan.",
     "Jovan G.",
     "Nemanja M.",
     "Kristina M.",
     "Lazar Kal.",
-    "Marjan M.",
     "Lazar Kan.",
     "Đorđe T.",
-    "Teodora T.",
-    "Nenad Ž.",
-    "Nikola V.",
-    "Marko M.",
-    "Milan M.",
     "Miloš C.",
     "Ilija M.",
     "Marko P.",
@@ -328,7 +338,7 @@
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v2';
+  const STORAGE_KEY = 'raspored-state-v3';
 
   function loadState() {
     try {
@@ -428,19 +438,32 @@ const overlay = document.getElementById('modal-overlay');
   }
 
   function pozicionirajDatum() {
-    const top7items = Array.from(lista.querySelectorAll('.item.top7'));
-    const sidebar = document.getElementById('datum-sidebar');
-    if (top7items.length === 0) {
-      sidebar.style.display = 'none';
-      return;
-    }
     const wrap = document.querySelector('.lista-wrap');
     const wrapTop = wrap.getBoundingClientRect().top;
-    const firstTop = top7items[0].getBoundingClientRect().top - wrapTop;
-    const lastBottom = top7items[top7items.length - 1].getBoundingClientRect().bottom - wrapTop;
-    sidebar.style.display = 'flex';
-    sidebar.style.top = firstTop + 'px';
-    sidebar.style.height = (lastBottom - firstTop) + 'px';
+
+    const top7items = Array.from(lista.querySelectorAll('.item.top7'));
+    const sidebar1 = document.getElementById('datum-sidebar');
+    if (top7items.length > 0) {
+      const firstTop = top7items[0].getBoundingClientRect().top - wrapTop;
+      const lastBottom = top7items[top7items.length - 1].getBoundingClientRect().bottom - wrapTop;
+      sidebar1.style.display = 'flex';
+      sidebar1.style.top = firstTop + 'px';
+      sidebar1.style.height = (lastBottom - firstTop) + 'px';
+    } else {
+      sidebar1.style.display = 'none';
+    }
+
+    const mid7items = Array.from(lista.querySelectorAll('.item.mid7'));
+    const sidebar2 = document.getElementById('datum-sidebar-2');
+    if (mid7items.length > 0) {
+      const firstTop = mid7items[0].getBoundingClientRect().top - wrapTop;
+      const lastBottom = mid7items[mid7items.length - 1].getBoundingClientRect().bottom - wrapTop;
+      sidebar2.style.display = 'flex';
+      sidebar2.style.top = firstTop + 'px';
+      sidebar2.style.height = (lastBottom - firstTop) + 'px';
+    } else {
+      sidebar2.style.display = 'none';
+    }
   }
 
   function createItem(s, pozicija) {
