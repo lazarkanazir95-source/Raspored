@@ -92,6 +92,12 @@
       color: #0369a1;
     }
 
+    #datum-sidebar-3 {
+      background: #fef9c3;
+      border: 1px solid #fde047;
+      color: #a16207;
+    }
+
     .item {
       display: flex;
       align-items: center;
@@ -156,6 +162,20 @@
 
     .item.mid7 .broj {
       color: #0369a1;
+    }
+
+    .item.mid14 {
+      background: #fef9c3;
+      border-color: #fde047;
+    }
+
+    .item.mid14:hover {
+      background: #fef08a;
+      border-color: #facc15;
+    }
+
+    .item.mid14 .broj {
+      color: #a16207;
     }
 
     .ime {
@@ -291,6 +311,7 @@
     <ul id="lista-checked"></ul>
     <div id="datum-sidebar">04. - 05.07.2026.</div>
     <div id="datum-sidebar-2">11. - 12.07.2026.</div>
+    <div id="datum-sidebar-3">18. - 19.07.2026.</div>
   </div>
 
   <div class="stats" id="stats">0 / 24 označeno</div>
@@ -464,11 +485,23 @@ const overlay = document.getElementById('modal-overlay');
     } else {
       sidebar2.style.display = 'none';
     }
+
+    const mid14items = Array.from(lista.querySelectorAll('.item.mid14'));
+    const sidebar3 = document.getElementById('datum-sidebar-3');
+    if (mid14items.length > 0) {
+      const firstTop = mid14items[0].getBoundingClientRect().top - wrapTop;
+      const lastBottom = mid14items[mid14items.length - 1].getBoundingClientRect().bottom - wrapTop;
+      sidebar3.style.display = 'flex';
+      sidebar3.style.top = firstTop + 'px';
+      sidebar3.style.height = (lastBottom - firstTop) + 'px';
+    } else {
+      sidebar3.style.display = 'none';
+    }
   }
 
   function createItem(s, pozicija) {
     const li = document.createElement('li');
-    const boja = pozicija <= 7 ? ' top7' : pozicija <= 14 ? ' mid7' : '';
+    const boja = pozicija <= 7 ? ' top7' : pozicija <= 14 ? ' mid7' : pozicija <= 21 ? ' mid14' : '';
     li.className = 'item' + boja;
     li.innerHTML = `
       <span class="broj">${pozicija}.</span>
