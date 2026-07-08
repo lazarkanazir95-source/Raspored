@@ -462,11 +462,13 @@ const overlay = document.getElementById('modal-overlay');
     const wrap = document.querySelector('.lista-wrap');
     const wrapTop = wrap.getBoundingClientRect().top;
 
+    const GAP = 6;
+
     const top7items = Array.from(lista.querySelectorAll('.item.top7'));
     const sidebar1 = document.getElementById('datum-sidebar');
     if (top7items.length > 0) {
       const firstTop = top7items[0].getBoundingClientRect().top - wrapTop;
-      const lastBottom = top7items[top7items.length - 1].getBoundingClientRect().bottom - wrapTop;
+      const lastBottom = top7items[top7items.length - 1].getBoundingClientRect().bottom - wrapTop + GAP;
       sidebar1.style.display = 'flex';
       sidebar1.style.top = firstTop + 'px';
       sidebar1.style.height = (lastBottom - firstTop) + 'px';
@@ -478,7 +480,7 @@ const overlay = document.getElementById('modal-overlay');
     const sidebar2 = document.getElementById('datum-sidebar-2');
     if (mid7items.length > 0) {
       const firstTop = mid7items[0].getBoundingClientRect().top - wrapTop;
-      const lastBottom = mid7items[mid7items.length - 1].getBoundingClientRect().bottom - wrapTop;
+      const lastBottom = mid7items[mid7items.length - 1].getBoundingClientRect().bottom - wrapTop + GAP;
       sidebar2.style.display = 'flex';
       sidebar2.style.top = firstTop + 'px';
       sidebar2.style.height = (lastBottom - firstTop) + 'px';
@@ -490,7 +492,7 @@ const overlay = document.getElementById('modal-overlay');
     const sidebar3 = document.getElementById('datum-sidebar-3');
     if (mid14items.length > 0) {
       const firstTop = mid14items[0].getBoundingClientRect().top - wrapTop;
-      const lastBottom = mid14items[mid14items.length - 1].getBoundingClientRect().bottom - wrapTop;
+      const lastBottom = mid14items[mid14items.length - 1].getBoundingClientRect().bottom - wrapTop + GAP;
       sidebar3.style.display = 'flex';
       sidebar3.style.top = firstTop + 'px';
       sidebar3.style.height = (lastBottom - firstTop) + 'px';
