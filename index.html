@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026071001">
+  <meta name="app-version" content="2026071301">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026071001';
+      var V = '2026071301';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -322,9 +322,9 @@
   <div class="lista-wrap">
     <ul id="lista"></ul>
     <ul id="lista-checked"></ul>
-    <div id="datum-sidebar">11. - 12.07.2026.</div>
-    <div id="datum-sidebar-2">18. - 19.07.2026.</div>
-    <div id="datum-sidebar-3">25. - 26.07.2026.</div>
+    <div id="datum-sidebar">18. - 19.07.2026.</div>
+    <div id="datum-sidebar-2">25. - 26.07.2026.</div>
+    <div id="datum-sidebar-3">01. - 02.08.2026.</div>
   </div>
 
   <div class="stats" id="stats">0 / 24 označeno</div>
@@ -345,15 +345,8 @@
 
 <script>
   const DEFAULT_LICA = [
-    "Nikola V.",
-    "Marjan M.",
-    "Teodora T.",
-    "Nenad Ž.",
-    "Marko M.",
-    "Lazar Kal.",
-    "Lazar Kan.",
     "Jovan G.",
-    "Nemanja M.",
+    "Marko S.",
     "Kristina M.",
     "Milan M.",
     "Branko S.",
@@ -368,11 +361,18 @@
     "Ana J.",
     "Kosara S.",
     "Ivana M.",
-    "Marija M."
+    "Marija M.",
+    "Nikola V.",
+    "Marjan M.",
+    "Teodora T.",
+    "Nenad Ž.",
+    "Marko M.",
+    "Lazar Kal.",
+    "Lazar Kan."
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v12';
+  const STORAGE_KEY = 'raspored-state-v13';
 
   function loadState() {
     try {
@@ -546,5 +546,6 @@ const overlay = document.getElementById('modal-overlay');
 </script>
 </body>
 </html>
+
 
 
