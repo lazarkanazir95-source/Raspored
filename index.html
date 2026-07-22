@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026072202">
+  <meta name="app-version" content="2026072203">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026072202';
+      var V = '2026072203';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -346,7 +346,6 @@
 <script>
   const DEFAULT_LICA = [
     "Kristina M.",
-    "Đorđe T.",
     "Ilija M.",
     "Aleksandar G.",
     "Marija T.",
@@ -367,12 +366,13 @@
     "Milan M.",
     "Branko S.",
     "Marko P.",
+    "Đorđe T.",
     "Nikola V.",
     "Bogdan Š."
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v15';
+  const STORAGE_KEY = 'raspored-state-v16';
 
   function loadState() {
     try {
