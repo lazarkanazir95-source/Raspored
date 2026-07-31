@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026073101">
+  <meta name="app-version" content="2026073102">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026073101';
+      var V = '2026073102';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -348,14 +348,7 @@
     "Ilija M.",
     "Marija T.",
     "Jovana Š.",
-    "Miloš C.",
-    "Teodora T.",
-    "Nenad Ž.",
-    "Marko M.",
     "Lazar Kal.",
-    "Lazar Kan.",
-    "Jovan G.",
-    "Marko S.",
     "Milan M.",
     "Branko S.",
     "Marko P.",
@@ -368,11 +361,18 @@
     "Kosara S.",
     "Ivana M.",
     "Marija M.",
-    "Marjan M."
+    "Marjan M.",
+    "Miloš C.",
+    "Teodora T.",
+    "Nenad Ž.",
+    "Marko M.",
+    "Lazar Kan.",
+    "Jovan G.",
+    "Marko S."
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v17';
+  const STORAGE_KEY = 'raspored-state-v18';
 
   function loadState() {
     try {
