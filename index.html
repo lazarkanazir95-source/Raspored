@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026073104">
+  <meta name="app-version" content="2026081101">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026073104';
+      var V = '2026081101';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -410,15 +410,8 @@
 <script>
   const DEFAULT_LICA = [
     "Odmor - Ilija M.",
-    "Marija T.",
-    "Jovana Š.",
-    "Lazar Kal.",
     "Odmor - Milan M.",
-    "Branko S.",
-    "Marko P.",
-    "Đorđe T.",
     "Odmor - Nikola V.",
-    "Bogdan Š.",
     "Kristina M.",
     "Odmor - Aleksandar G.",
     "Ana J.",
@@ -432,23 +425,30 @@
     "Marko M.",
     "Lazar Kan.",
     "Jovan G.",
-    "Marko S."
+    "Marko S.",
+    "Marija T.",
+    "Jovana Š.",
+    "Lazar Kal.",
+    "Branko S.",
+    "Marko P.",
+    "Đorđe T.",
+    "Bogdan Š."
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v18';
+  const STORAGE_KEY = 'raspored-state-v19';
 
   const VIKEND_INICIJALNO = {
     "Ilija M.": 0,
-    "Marija T.": 1,
-    "Jovana Š.": 1,
-    "Lazar Kal.": 1,
+    "Marija T.": 2,
+    "Jovana Š.": 2,
+    "Lazar Kal.": 2,
     "Milan M.": 1,
-    "Branko S.": 1,
-    "Marko P.": 1,
-    "Đorđe T.": 1,
+    "Branko S.": 2,
+    "Marko P.": 2,
+    "Đorđe T.": 2,
     "Nikola V.": 1,
-    "Bogdan Š.": 1,
+    "Bogdan Š.": 2,
     "Kristina M.": 1,
     "Aleksandar G.": 2,
     "Ana J.": 2,
@@ -464,7 +464,7 @@
     "Jovan G.": 2,
     "Marko S.": 2
   };
-  const VIKEND_STORAGE_KEY = 'radni-vikend-v1';
+  const VIKEND_STORAGE_KEY = 'radni-vikend-v2';
 
   function loadVikendData() {
     try {
@@ -595,8 +595,14 @@ const overlay = document.getElementById('modal-overlay');
     const aktivni = state.filter(s => !s.checked);
     const oznaceni = state.filter(s => s.checked);
 
-    aktivni.forEach((s, i) => lista.appendChild(createItem(s, i + 1)));
-    oznaceni.forEach((s, i) => listaChecked.appendChild(createItem(s, aktivni.length + i + 1)));
+    let brojAktivnih = 0;
+    aktivni.forEach((s, i) => {
+      const jeOdmor = s.ime.startsWith('Odmor - ');
+      if (!jeOdmor) brojAktivnih++;
+      const boja = brojAktivnih <= 7 ? ' top7' : brojAktivnih <= 14 ? ' mid7' : brojAktivnih <= 21 ? ' mid14' : '';
+      lista.appendChild(createItem(s, i + 1, boja));
+    });
+    oznaceni.forEach((s, i) => listaChecked.appendChild(createItem(s, aktivni.length + i + 1, '')));
 
     stats.textContent = `${oznaceni.length} / ${DEFAULT_LICA.length} označeno`;
     requestAnimationFrame(pozicionirajDatum);
@@ -645,9 +651,8 @@ const overlay = document.getElementById('modal-overlay');
     }
   }
 
-  function createItem(s, pozicija) {
+  function createItem(s, pozicija, boja) {
     const li = document.createElement('li');
-    const boja = pozicija <= 7 ? ' top7' : pozicija <= 14 ? ' mid7' : pozicija <= 21 ? ' mid14' : '';
     const jeOdmor = s.ime.startsWith('Odmor - ');
     li.className = 'item' + boja + (jeOdmor ? ' odmor' : '');
     li.innerHTML = `
