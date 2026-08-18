@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026081102">
+  <meta name="app-version" content="2026081103">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026081102';
+      var V = '2026081103';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -410,20 +410,14 @@
 <script>
   const DEFAULT_LICA = [
     "Odmor - Ilija M.",
-    "Odmor - Milan M.",
-    "Odmor - Nikola V.",
-    "Kristina M.",
-    "Odmor - Aleksandar G.",
+    "Milan M.",
+    "Nikola V.",
+    "Aleksandar G.",
     "Odmor - Ana J.",
     "Odmor - Kosara S.",
-    "Ivana M.",
-    "Marija M.",
-    "Marjan M.",
-    "Miloš C.",
     "Odmor - Teodora T.",
     "Odmor - Nenad Ž.",
     "Marko M.",
-    "Lazar Kan.",
     "Jovan G.",
     "Marko S.",
     "Marija T.",
@@ -432,11 +426,17 @@
     "Branko S.",
     "Marko P.",
     "Đorđe T.",
-    "Bogdan Š."
+    "Bogdan Š.",
+    "Kristina M.",
+    "Ivana M.",
+    "Odmor - Marija M.",
+    "Marjan M.",
+    "Miloš C.",
+    "Lazar Kan."
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v20';
+  const STORAGE_KEY = 'raspored-state-v21';
 
   const VIKEND_INICIJALNO = {
     "Ilija M.": 0,
@@ -449,22 +449,22 @@
     "Đorđe T.": 2,
     "Nikola V.": 1,
     "Bogdan Š.": 2,
-    "Kristina M.": 1,
+    "Kristina M.": 2,
     "Aleksandar G.": 2,
     "Ana J.": 2,
     "Kosara S.": 2,
-    "Ivana M.": 2,
-    "Marija M.": 2,
-    "Marjan M.": 2,
-    "Miloš C.": 2,
+    "Ivana M.": 3,
+    "Marija M.": 3,
+    "Marjan M.": 3,
+    "Miloš C.": 3,
     "Teodora T.": 2,
     "Nenad Ž.": 2,
     "Marko M.": 2,
-    "Lazar Kan.": 2,
+    "Lazar Kan.": 3,
     "Jovan G.": 2,
     "Marko S.": 2
   };
-  const VIKEND_STORAGE_KEY = 'radni-vikend-v2';
+  const VIKEND_STORAGE_KEY = 'radni-vikend-v3';
 
   function loadVikendData() {
     try {
