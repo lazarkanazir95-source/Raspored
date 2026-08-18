@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026081105">
+  <meta name="app-version" content="2026081106">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026081105';
+      var V = '2026081106';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -482,7 +482,7 @@
 
   function renderVikendTabela() {
     const tabela = document.getElementById('vikend-tabela');
-    const imena = Object.keys(VIKEND_INICIJALNO);
+    const imena = Object.keys(VIKEND_INICIJALNO).sort((a, b) => (vikendData[a] ?? 0) - (vikendData[b] ?? 0));
     tabela.innerHTML = imena.map(ime => `
       <tr class="vikend-red">
         <td class="vikend-ime">${ime}</td>
