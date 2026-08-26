@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026081106">
+  <meta name="app-version" content="2026082601">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026081106';
+      var V = '2026082601';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -410,17 +410,11 @@
 <script>
   const DEFAULT_LICA = [
     "Odmor - Ilija M.",
-    "Milan M.",
-    "Nikola V.",
     "Aleksandar G.",
     "Odmor - Ana J.",
     "Odmor - Kosara S.",
     "Odmor - Teodora T.",
     "Odmor - Nenad Ž.",
-    "Marko M.",
-    "Jovan G.",
-    "Marko S.",
-    "Marija T.",
     "Jovana Š.",
     "Lazar Kal.",
     "Odmor - Branko S.",
@@ -432,22 +426,28 @@
     "Odmor - Marija M.",
     "Marjan M.",
     "Miloš C.",
-    "Lazar Kan."
+    "Lazar Kan.",
+    "Milan M.",
+    "Nikola V.",
+    "Marko M.",
+    "Jovan G.",
+    "Marko S.",
+    "Marija T."
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v22';
+  const STORAGE_KEY = 'raspored-state-v23';
 
   const VIKEND_INICIJALNO = {
     "Ilija M.": 0,
-    "Marija T.": 2,
+    "Marija T.": 3,
     "Jovana Š.": 2,
     "Lazar Kal.": 2,
-    "Milan M.": 1,
+    "Milan M.": 2,
     "Branko S.": 2,
     "Marko P.": 2,
     "Đorđe T.": 2,
-    "Nikola V.": 1,
+    "Nikola V.": 2,
     "Bogdan Š.": 2,
     "Kristina M.": 2,
     "Aleksandar G.": 2,
@@ -459,12 +459,12 @@
     "Miloš C.": 3,
     "Teodora T.": 2,
     "Nenad Ž.": 2,
-    "Marko M.": 2,
+    "Marko M.": 3,
     "Lazar Kan.": 3,
-    "Jovan G.": 2,
-    "Marko S.": 2
+    "Jovan G.": 3,
+    "Marko S.": 3
   };
-  const VIKEND_STORAGE_KEY = 'radni-vikend-v3';
+  const VIKEND_STORAGE_KEY = 'radni-vikend-v4';
 
   function loadVikendData() {
     try {
