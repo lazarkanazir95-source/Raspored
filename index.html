@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026082604">
+  <meta name="app-version" content="2026082605">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026082604';
+      var V = '2026082605';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -382,9 +382,9 @@
   <div class="lista-wrap">
     <ul id="lista"></ul>
     <ul id="lista-checked"></ul>
-    <div id="datum-sidebar">29. - 30.08.2026.</div>
-    <div id="datum-sidebar-2">05. - 06.09.2026.</div>
-    <div id="datum-sidebar-3">12. - 13.09.2026.</div>
+    <div id="datum-sidebar">05. - 06.09.2026.</div>
+    <div id="datum-sidebar-2">12. - 13.09.2026.</div>
+    <div id="datum-sidebar-3">19. - 20.09.2026.</div>
   </div>
 
   <div class="stats" id="stats">0 / 24 označeno</div>
@@ -409,21 +409,14 @@
 
 <script>
   const DEFAULT_LICA = [
-    "Odmor - Ilija M.",
-    "Odmor - Ana J.",
-    "Kosara S.",
-    "Odmor - Teodora T.",
-    "Nenad Ž.",
-    "Jovana Š.",
-    "Lazar Kal.",
+    "Ilija M.",
+    "Ana J.",
+    "Teodora T.",
     "Odmor - Branko S.",
-    "Marko P.",
     "Odmor - Đorđe T.",
     "Odmor - Bogdan Š.",
-    "Kristina M.",
     "Odmor - Ivana M.",
-    "Odmor - Marija M.",
-    "Marjan M.",
+    "Marija M.",
     "Miloš C.",
     "Odmor - Lazar Kan.",
     "Milan M.",
@@ -432,11 +425,18 @@
     "Odmor - Jovan G.",
     "Odmor - Marko S.",
     "Marija T.",
-    "Aleksandar G."
+    "Aleksandar G.",
+    "Kosara S.",
+    "Nenad Ž.",
+    "Jovana Š.",
+    "Lazar Kal.",
+    "Marko P.",
+    "Kristina M.",
+    "Marjan M."
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v25';
+  const STORAGE_KEY = 'raspored-state-v26';
 
   const VIKEND_INICIJALNO = {
     "Ilija M.": 0,
