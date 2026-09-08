@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="sr">
 <head>
   <meta charset="UTF-8">
@@ -436,31 +436,31 @@
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v26';
+  const STORAGE_KEY = 'raspored-state-v27';
 
   const VIKEND_INICIJALNO = {
     "Ilija M.": 0,
     "Marija T.": 3,
-    "Jovana Š.": 2,
+    "Jovana Š.": 3,
     "Lazar Kal.": 2,
-    "Milan M.": 2,
+    "Milan M.": 3,
     "Branko S.": 2,
     "Marko P.": 2,
     "Đorđe T.": 2,
     "Nikola V.": 2,
     "Bogdan Š.": 2,
     "Kristina M.": 2,
-    "Aleksandar G.": 2,
+    "Aleksandar G.": 3,
     "Ana J.": 2,
     "Kosara S.": 2,
     "Ivana M.": 3,
     "Marija M.": 3,
     "Marjan M.": 3,
-    "Miloš C.": 3,
+    "Miloš C.": 4,
     "Teodora T.": 2,
     "Nenad Ž.": 2,
     "Marko M.": 3,
-    "Lazar Kan.": 3,
+    "Lazar Kan.": 4,
     "Jovan G.": 3,
     "Marko S.": 3
   };
@@ -505,12 +505,17 @@
     });
   }
 
+  const OZNACENI_PO_DEFAULT = ["Miloš C.", "Lazar Kan.", "Milan M.", "Jovana Š.", "Aleksandar G."];
+
   function loadState() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) return JSON.parse(saved);
     } catch (e) {}
-    return DEFAULT_LICA.map((ime, i) => ({ id: i, ime, checked: false }));
+    const svi = DEFAULT_LICA.map((ime, i) => ({ id: i, ime, checked: false }));
+    const neoznaceni = svi.filter(s => !OZNACENI_PO_DEFAULT.includes(s.ime));
+    const oznaceni = OZNACENI_PO_DEFAULT.map(ime => ({ ...svi.find(s => s.ime === ime), checked: true }));
+    return [...neoznaceni, ...oznaceni];
   }
 
   function saveState() {
