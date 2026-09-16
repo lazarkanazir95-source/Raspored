@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026082605">
+  <meta name="app-version" content="2026091601">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026082605';
+      var V = '2026091601';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -413,10 +413,10 @@
     "Branko S.",
     "Đorđe T.",
     "Bogdan Š.",
-    "Odmor - Ivana M.",
+    "Ivana M.",
     "Marija M.",
     "Nikola V.",
-    "Odmor - Marko M.",
+    "Marko M.",
     "Odmor - Jovan G.",
     "Odmor - Marko S.",
     "Marija T.",
@@ -425,7 +425,7 @@
     "Lazar Kal.",
     "Marko P.",
     "Kristina M.",
-    "Marjan M.",
+    "Odmor - Marjan M.",
     "Ilija M.",
     "Teodora T.",
     "Miloš C.",
@@ -436,25 +436,25 @@
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v37';
+  const STORAGE_KEY = 'raspored-state-v38';
 
   const VIKEND_INICIJALNO = {
     "Ilija M.": 1,
-    "Marija T.": 3,
+    "Marija T.": 4,
     "Jovana Š.": 4,
-    "Lazar Kal.": 3,
+    "Lazar Kal.": 4,
     "Milan M.": 3,
-    "Branko S.": 2,
+    "Branko S.": 3,
     "Marko P.": 3,
-    "Đorđe T.": 2,
-    "Nikola V.": 2,
-    "Bogdan Š.": 2,
+    "Đorđe T.": 3,
+    "Nikola V.": 3,
+    "Bogdan Š.": 3,
     "Kristina M.": 3,
     "Aleksandar G.": 3,
     "Ana J.": 2,
-    "Kosara S.": 3,
+    "Kosara S.": 4,
     "Ivana M.": 3,
-    "Marija M.": 3,
+    "Marija M.": 4,
     "Marjan M.": 4,
     "Miloš C.": 4,
     "Teodora T.": 3,
@@ -464,7 +464,7 @@
     "Jovan G.": 3,
     "Marko S.": 3
   };
-  const VIKEND_STORAGE_KEY = 'radni-vikend-v6';
+  const VIKEND_STORAGE_KEY = 'radni-vikend-v7';
 
   function loadVikendData() {
     try {
@@ -505,7 +505,7 @@
     });
   }
 
-  const OZNACENI_PO_DEFAULT = ["Miloš C.", "Odmor - Lazar Kan.", "Milan M.", "Jovana Š.", "Aleksandar G."];
+  const OZNACENI_PO_DEFAULT = ["Miloš C.", "Odmor - Lazar Kan.", "Milan M.", "Jovana Š.", "Aleksandar G.", "Branko S.", "Đorđe T.", "Bogdan Š.", "Marija M.", "Nikola V.", "Marija T.", "Kosara S.", "Lazar Kal."];
 
   function loadState() {
     try {
