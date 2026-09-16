@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026091601">
+  <meta name="app-version" content="2026091602">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026091601';
+      var V = '2026091602';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -382,9 +382,9 @@
   <div class="lista-wrap">
     <ul id="lista"></ul>
     <ul id="lista-checked"></ul>
-    <div id="datum-sidebar">05. - 06.09.2026.</div>
-    <div id="datum-sidebar-2">12. - 13.09.2026.</div>
-    <div id="datum-sidebar-3">19. - 20.09.2026.</div>
+    <div id="datum-sidebar">19. - 20.09.2026.</div>
+    <div id="datum-sidebar-2">26. - 27.09.2026.</div>
+    <div id="datum-sidebar-3">03. - 04.10.2026.</div>
   </div>
 
   <div class="stats" id="stats">0 / 24 označeno</div>
@@ -428,8 +428,8 @@
     "Odmor - Marjan M.",
     "Ilija M.",
     "Teodora T.",
-    "Miloš C.",
-    "Odmor - Lazar Kan.",
+    "Odmor - Miloš C.",
+    "Lazar Kan.",
     "Milan M.",
     "Jovana Š.",
     "Aleksandar G."
@@ -505,7 +505,7 @@
     });
   }
 
-  const OZNACENI_PO_DEFAULT = ["Miloš C.", "Odmor - Lazar Kan.", "Milan M.", "Jovana Š.", "Aleksandar G.", "Branko S.", "Đorđe T.", "Bogdan Š.", "Marija M.", "Nikola V.", "Marija T.", "Kosara S.", "Lazar Kal."];
+  const OZNACENI_PO_DEFAULT = ["Odmor - Miloš C.", "Lazar Kan.", "Milan M.", "Jovana Š.", "Aleksandar G.", "Branko S.", "Đorđe T.", "Bogdan Š.", "Marija M.", "Nikola V.", "Marija T.", "Kosara S.", "Lazar Kal."];
 
   function loadState() {
     try {
@@ -593,21 +593,31 @@ const overlay = document.getElementById('modal-overlay');
     if (e.target === overlay) zatvoriModal();
   });
 
+  const SEKCIJA_1_KRAJ = 'Ilija M.';
+  const SEKCIJA_2_KRAJ = 'Branko S.';
+
   function render() {
     lista.innerHTML = '';
     listaChecked.innerHTML = '';
 
     const aktivni = state.filter(s => !s.checked);
     const oznaceni = state.filter(s => s.checked);
+    const puniRedosled = aktivni.concat(oznaceni);
 
-    let brojAktivnih = 0;
-    aktivni.forEach((s, i) => {
-      const jeOdmor = s.ime.startsWith('Odmor - ');
-      if (!jeOdmor) brojAktivnih++;
-      const boja = brojAktivnih <= 7 ? ' top7' : brojAktivnih <= 14 ? ' mid7' : brojAktivnih <= 21 ? ' mid14' : '';
-      lista.appendChild(createItem(s, i + 1, boja));
+    const kraj1 = puniRedosled.findIndex(s => s.ime === SEKCIJA_1_KRAJ);
+    const kraj2 = puniRedosled.findIndex(s => s.ime === SEKCIJA_2_KRAJ);
+
+    function bojaZaIndeks(i) {
+      if (i <= kraj1) return ' top7';
+      if (i <= kraj2) return ' mid7';
+      return ' mid14';
+    }
+
+    aktivni.forEach((s, i) => lista.appendChild(createItem(s, i + 1, bojaZaIndeks(i))));
+    oznaceni.forEach((s, i) => {
+      const idx = aktivni.length + i;
+      listaChecked.appendChild(createItem(s, idx + 1, bojaZaIndeks(idx)));
     });
-    oznaceni.forEach((s, i) => listaChecked.appendChild(createItem(s, aktivni.length + i + 1, '')));
 
     stats.textContent = `${oznaceni.length} / ${DEFAULT_LICA.length} označeno`;
     requestAnimationFrame(pozicionirajDatum);
@@ -619,41 +629,23 @@ const overlay = document.getElementById('modal-overlay');
 
     const GAP = 6;
 
-    const top7items = Array.from(lista.querySelectorAll('.item.top7'));
-    const sidebar1 = document.getElementById('datum-sidebar');
-    if (top7items.length > 0) {
-      const firstTop = top7items[0].getBoundingClientRect().top - wrapTop;
-      const lastBottom = top7items[top7items.length - 1].getBoundingClientRect().bottom - wrapTop + GAP;
-      sidebar1.style.display = 'flex';
-      sidebar1.style.top = firstTop + 'px';
-      sidebar1.style.height = (lastBottom - firstTop) + 'px';
-    } else {
-      sidebar1.style.display = 'none';
+    function pozicioniraj(klasa, sidebarId) {
+      const items = Array.from(document.querySelectorAll('.lista-wrap .item.' + klasa));
+      const sidebar = document.getElementById(sidebarId);
+      if (items.length > 0) {
+        const firstTop = items[0].getBoundingClientRect().top - wrapTop;
+        const lastBottom = items[items.length - 1].getBoundingClientRect().bottom - wrapTop + GAP;
+        sidebar.style.display = 'flex';
+        sidebar.style.top = firstTop + 'px';
+        sidebar.style.height = (lastBottom - firstTop) + 'px';
+      } else {
+        sidebar.style.display = 'none';
+      }
     }
 
-    const mid7items = Array.from(lista.querySelectorAll('.item.mid7'));
-    const sidebar2 = document.getElementById('datum-sidebar-2');
-    if (mid7items.length > 0) {
-      const firstTop = mid7items[0].getBoundingClientRect().top - wrapTop;
-      const lastBottom = mid7items[mid7items.length - 1].getBoundingClientRect().bottom - wrapTop + GAP;
-      sidebar2.style.display = 'flex';
-      sidebar2.style.top = firstTop + 'px';
-      sidebar2.style.height = (lastBottom - firstTop) + 'px';
-    } else {
-      sidebar2.style.display = 'none';
-    }
-
-    const mid14items = Array.from(lista.querySelectorAll('.item.mid14'));
-    const sidebar3 = document.getElementById('datum-sidebar-3');
-    if (mid14items.length > 0) {
-      const firstTop = mid14items[0].getBoundingClientRect().top - wrapTop;
-      const lastBottom = mid14items[mid14items.length - 1].getBoundingClientRect().bottom - wrapTop + GAP;
-      sidebar3.style.display = 'flex';
-      sidebar3.style.top = firstTop + 'px';
-      sidebar3.style.height = (lastBottom - firstTop) + 'px';
-    } else {
-      sidebar3.style.display = 'none';
-    }
+    pozicioniraj('top7', 'datum-sidebar');
+    pozicioniraj('mid7', 'datum-sidebar-2');
+    pozicioniraj('mid14', 'datum-sidebar-3');
   }
 
   function createItem(s, pozicija, boja) {
