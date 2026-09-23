@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="app-version" content="2026091602">
+  <meta name="app-version" content="2026092302">
   <title>Lista lica</title>
   <script>
     (function() {
-      var V = '2026091602';
+      var V = '2026092302';
       fetch(location.pathname + '?_=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(html) {
@@ -382,9 +382,9 @@
   <div class="lista-wrap">
     <ul id="lista"></ul>
     <ul id="lista-checked"></ul>
-    <div id="datum-sidebar">19. - 20.09.2026.</div>
-    <div id="datum-sidebar-2">26. - 27.09.2026.</div>
-    <div id="datum-sidebar-3">03. - 04.10.2026.</div>
+    <div id="datum-sidebar">26. - 27.09.2026.</div>
+    <div id="datum-sidebar-2">03. - 04.10.2026.</div>
+    <div id="datum-sidebar-3">10. - 11.10.2026.</div>
   </div>
 
   <div class="stats" id="stats">0 / 24 označeno</div>
@@ -436,35 +436,35 @@
   ];
 
   const SIFRA = '2708';
-  const STORAGE_KEY = 'raspored-state-v38';
+  const STORAGE_KEY = 'raspored-state-v39';
 
   const VIKEND_INICIJALNO = {
-    "Ilija M.": 1,
+    "Ilija M.": 2,
     "Marija T.": 4,
     "Jovana Š.": 4,
     "Lazar Kal.": 4,
     "Milan M.": 3,
     "Branko S.": 3,
-    "Marko P.": 3,
+    "Marko P.": 4,
     "Đorđe T.": 3,
     "Nikola V.": 3,
     "Bogdan Š.": 3,
-    "Kristina M.": 3,
+    "Kristina M.": 4,
     "Aleksandar G.": 3,
-    "Ana J.": 2,
+    "Ana J.": 3,
     "Kosara S.": 4,
-    "Ivana M.": 3,
+    "Ivana M.": 4,
     "Marija M.": 4,
     "Marjan M.": 4,
     "Miloš C.": 4,
     "Teodora T.": 3,
-    "Nenad Ž.": 3,
-    "Marko M.": 3,
+    "Nenad Ž.": 4,
+    "Marko M.": 4,
     "Lazar Kan.": 4,
     "Jovan G.": 3,
     "Marko S.": 3
   };
-  const VIKEND_STORAGE_KEY = 'radni-vikend-v7';
+  const VIKEND_STORAGE_KEY = 'radni-vikend-v8';
 
   function loadVikendData() {
     try {
@@ -505,7 +505,7 @@
     });
   }
 
-  const OZNACENI_PO_DEFAULT = ["Odmor - Miloš C.", "Lazar Kan.", "Milan M.", "Jovana Š.", "Aleksandar G.", "Branko S.", "Đorđe T.", "Bogdan Š.", "Marija M.", "Nikola V.", "Marija T.", "Kosara S.", "Lazar Kal."];
+  const OZNACENI_PO_DEFAULT = ["Odmor - Miloš C.", "Lazar Kan.", "Milan M.", "Jovana Š.", "Aleksandar G.", "Branko S.", "Bogdan Š.", "Đorđe T.", "Marija M.", "Nikola V.", "Marija T.", "Kosara S.", "Lazar Kal.", "Ana J.", "Ivana M.", "Marko M.", "Nenad Ž.", "Marko P.", "Kristina M.", "Ilija M."];
 
   function loadState() {
     try {
@@ -593,8 +593,8 @@ const overlay = document.getElementById('modal-overlay');
     if (e.target === overlay) zatvoriModal();
   });
 
-  const SEKCIJA_1_KRAJ = 'Ilija M.';
-  const SEKCIJA_2_KRAJ = 'Branko S.';
+  const SEKCIJA_1_KRAJ = 'Đorđe T.';
+  const SEKCIJA_2_KRAJ = 'Ana J.';
 
   function render() {
     lista.innerHTML = '';
